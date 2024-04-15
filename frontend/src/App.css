@@ -1,0 +1,25 @@
+body {
+  background-color: grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 50px;
+  font-size: 20px;
+}
+
+button {
+  background-color: lightgray;
+  border: unset;
+  font-size: 20px;
+  padding: 10px;
+  border: solid black;
+}
+button:hover {
+  background-color: aliceblue;
+}
+
+p {
+  color: white;
+  font-weight: bolder;
+}
