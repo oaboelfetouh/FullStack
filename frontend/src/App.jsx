@@ -1,4 +1,9 @@
+import { HashRouter, Route, Routes } from "react-router-dom";
 import { useState } from 'react'
+import Base from "./routes/Base";
+import Home from "./routes/Home";
+import Profile from "./routes/Profile";
+import Cart from "./routes/Cart";
 import './App.css'
 
 function App() {
@@ -13,12 +18,15 @@ function App() {
   }
 
   return (
-    <>
-      <div>
-        <button onClick={handler}>Click Me!</button>
-        <p>{message}</p>
-      </div>
-    </>
+    <HashRouter>
+        <Routes>
+          <Route path="/" element={<Base />}>
+            <Route index element={<Home />} />
+            <Route path="/profile" element={<Profile />}></Route>
+            <Route path="/cart" element={<Cart />}></Route>
+          </Route>
+        </Routes>
+    </HashRouter>
   )
 }
 
