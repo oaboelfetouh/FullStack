@@ -59,7 +59,7 @@ exports.login = async (req, res, next) => {
   try {
     if (!errors.isEmpty()) {
       const error = new Error(
-        'Data Validation Failed.Please Enter Valid Data.'
+        'Data Validation Failed. Please Enter Valid Data.'
       );
       error.status = 422;
       error.data = errors.array();

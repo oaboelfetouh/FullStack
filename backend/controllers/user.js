@@ -5,6 +5,7 @@ const Customer = require('../models/customer');
 
 exports.getUserProfile = async (req, res, next) => {
   const { userId, userType } = req;
+
   try {
     let user;
     if (userType.trim().toLowerCase() === 'seller') {
@@ -31,7 +32,17 @@ exports.getUserProfile = async (req, res, next) => {
 exports.editUserProfile = async (req, res, next) => {
   const { username, city, address, phone } = req.body;
   const { userId, userType } = req;
+  const errors = validationResult(req);
+
   try {
+    if (!errors.isEmpty()) {
+      const error = new Error(
+        'Data Validation Failed. Please Enter Valid Data.'
+      );
+      error.status = 422;
+      error.data = errors.array();
+      throw error;
+    }
     let user;
     if (userType.trim().toLowerCase() === 'seller') {
       user = await Seller.findById(userId);
