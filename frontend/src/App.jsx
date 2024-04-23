@@ -1,6 +1,6 @@
 import { useState } from "react";
 import GlobalStyles from "./styles/GlobalStyles";
-import "./App.css";
+// import "./App.css";
 
 function App() {
   const [message, setMessage] = useState(null);
