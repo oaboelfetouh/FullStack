@@ -1,0 +1,18 @@
+nav {
+    background: rgb(225, 187, 187);
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.search-bar {
+    display: flex;
+    
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 2rem;
+    margin-right: 1rem;
+}
