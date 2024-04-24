@@ -20,7 +20,7 @@ exports.getUserProfile = async (req, res, next) => {
     }
     res.status(200).json({
       message: 'User Found Succesfuly',
-      user: { ...user, password: undefined },
+      user: { ...user._doc, password: undefined },
     });
   } catch (err) {
     if (!err.status) {
@@ -62,7 +62,7 @@ exports.editUserProfile = async (req, res, next) => {
     const savedUser = await user.save();
     res.status(200).json({
       message: 'User Updated Succesfuly',
-      user: { ...savedUser, password: undefined },
+      user: { ...savedUser._doc, password: undefined },
     });
   } catch (err) {
     if (!err.status) {

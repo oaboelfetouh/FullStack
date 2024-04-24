@@ -54,13 +54,13 @@ router.post(
       .isEmail()
       .withMessage('please enter a valid email')
       .custom((value, { req }) => {
-        if (req.userType === 'seller') {
+        if (req.body.userType === 'seller') {
           return Seller.findOne({ email: value }).then((user) => {
             if (user) {
               return Promise.reject('Email Already exists');
             }
           });
-        } else if (req.userType === 'customer') {
+        } else if (req.body.userType === 'customer') {
           return Customer.findOne({ email: value }).then((user) => {
             if (user) {
               return Promise.reject('Email Already exists');

@@ -45,6 +45,7 @@ exports.signup = async (req, res, next) => {
     const result = await user.save();
     res.status(201).json({
       message: 'User Created Successfuly.',
+      user: { ...result._doc, password: undefined },
     });
   } catch (err) {
     if (!err.status) {

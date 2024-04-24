@@ -15,6 +15,11 @@ exports.viewProduct = async (req, res, next) => {
       throw error;
     }
     const product = await Product.findById(productId);
+    if (!product) {
+      const error = new Error('Product Not Found.');
+      error.status = 404;
+      throw error;
+    }
     if (product.seller.toString() !== userId) {
       const error = new Error('Not Authorized.');
       error.status = 403;
@@ -105,7 +110,7 @@ exports.addProduct = async (req, res, next) => {
     const result = await product.save();
     res.status(201).json({
       message: 'Product Added Successfuly.',
-      product: result,
+      product: result._doc,
     });
   } catch (err) {
     if (!err.status) {
