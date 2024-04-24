@@ -4,7 +4,7 @@ export default function Cart() {
 
     return (
         <>
-            cart
+            <div className="main-container">Cart</div>
         </>
     );
 }

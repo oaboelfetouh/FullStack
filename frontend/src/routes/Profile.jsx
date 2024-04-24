@@ -1,10 +1,10 @@
 
-export default function Profile() {
+export default function Profile(props) {
 
 
     return (
         <>
-            profile
+            <div className="main-container">{props.userType} Profile</div>
         </>
     );
 }

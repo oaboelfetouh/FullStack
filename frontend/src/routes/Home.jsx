@@ -1,10 +1,10 @@
 
-export default function Home() {
+export default function Home(props) {
 
 
     return (
         <>
-            home
+            <div className="main-container">{props.userType} Home</div>
         </>
     );
 }
