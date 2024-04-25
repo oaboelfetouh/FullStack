@@ -8,5 +8,5 @@ const router = Router();
 router.post('/product', isAuth, sellerController.addProduct);
 router.get('/product/:productId', isAuth, sellerController.viewProduct);
 router.delete('/product/:productId', isAuth, sellerController.deleteProduct);
-// router.put('/product/:productId', isAuth, sellerController.editProduct);
+router.put('/product/:productId', isAuth, sellerController.editProduct);
 module.exports = router;
