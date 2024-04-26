@@ -1,13 +1,13 @@
-const { Schema, model } = require('mongoose');
-const productSchema = new Schema(
+const { Schema, model } = require("mongoose");
+const cairoProductsSchema = new Schema(
   {
     name: {
       type: String,
       reqiured: true,
     },
-    seller: {
+    cairoSeller: {
       type: Schema.Types.ObjectId,
-      ref: 'Seller',
+      ref: "CairoSellers",
       reqiured: true,
     },
     description: {
@@ -34,4 +34,4 @@ const productSchema = new Schema(
   },
   { timestamps: true }
 );
-module.exports = model('Product', productSchema);
+module.exports = model("CairoProducts", cairoProductsSchema);

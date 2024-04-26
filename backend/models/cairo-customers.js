@@ -1,5 +1,5 @@
-const { Schema, model } = require('mongoose');
-const sellerSchema = new Schema(
+const { Schema, model } = require("mongoose");
+const cairoCustomersSchema = new Schema(
   {
     username: {
       type: String,
@@ -17,15 +17,7 @@ const sellerSchema = new Schema(
       type: String,
       reqiured: true,
     },
-
-    balance: {
-      type: Number,
-      default: 0,
-    },
-    cardInfo: {
-      type: Object,
-    },
   },
   { timestamps: true }
 );
-module.exports = model('Seller', sellerSchema);
+module.exports = model("CairoCustomers", cairoCustomersSchema);
