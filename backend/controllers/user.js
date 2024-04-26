@@ -6,33 +6,33 @@
 // exports.getUserProfile = async (req, res, next) => {
 //   const { userId, userType } = req;
 
-//   try {
-//     let user;
-//     if (userType.trim().toLowerCase() === 'seller') {
-//       user = await Seller.findById(userId);
-//     } else if (userType.trim().toLowerCase() === 'customer') {
-//       user = await Customer.findById(userId);
-//     }
-//     if (!user) {
-//       const error = new Error('User Not Found.');
-//       error.status = 404;
-//       throw error;
-//     }
-//     res.status(200).json({
-//       message: 'User Found Succesfuly',
-//       user: { ...user, password: undefined },
-//     });
-//   } catch (err) {
-//     if (!err.status) {
-//       err.status = 500;
-//     }
-//     next(err);
-//   }
-// };
-// exports.editUserProfile = async (req, res, next) => {
-//   const { username, city, address, phone } = req.body;
-//   const { userId, userType } = req;
-//   const errors = validationResult(req);
+  try {
+    let user;
+    if (userType.trim().toLowerCase() === 'seller') {
+      user = await Seller.findById(userId);
+    } else if (userType.trim().toLowerCase() === 'customer') {
+      user = await Customer.findById(userId);
+    }
+    if (!user) {
+      const error = new Error('User Not Found.');
+      error.status = 404;
+      throw error;
+    }
+    res.status(200).json({
+      message: 'User Found Succesfuly',
+      user: { ...user._doc, password: undefined },
+    });
+  } catch (err) {
+    if (!err.status) {
+      err.status = 500;
+    }
+    next(err);
+  }
+};
+exports.editUserProfile = async (req, res, next) => {
+  const { username, city, address, phone } = req.body;
+  const { userId, userType } = req;
+  const errors = validationResult(req);
 
 //   try {
 //     if (!errors.isEmpty()) {
@@ -55,19 +55,19 @@
 //       throw error;
 //     }
 
-//     user.username = username;
-//     user.city = city;
-//     user.address = address;
-//     user.phone = phone;
-//     const savedUser = await user.save();
-//     res.status(200).json({
-//       message: 'User Updated Succesfuly',
-//       user: { ...savedUser, password: undefined },
-//     });
-//   } catch (err) {
-//     if (!err.status) {
-//       err.status = 500;
-//     }
-//     next(err);
-//   }
-// };
+    user.username = username;
+    user.city = city;
+    user.address = address;
+    user.phone = phone;
+    const savedUser = await user.save();
+    res.status(200).json({
+      message: 'User Updated Succesfuly',
+      user: { ...savedUser._doc, password: undefined },
+    });
+  } catch (err) {
+    if (!err.status) {
+      err.status = 500;
+    }
+    next(err);
+  }
+};
