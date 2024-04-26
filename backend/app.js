@@ -4,24 +4,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const multer = require("multer");
 
-// const CairoSeller = require("./models/cairo-sellers");
-// const AlexSeller = require("./models/alex-sellers");
-// const CairoCustomer = require("./models/cairo-customers");
-// const AlexCustomer = require("./models/alex-customers");
-
-// CairoSeller.createCollection().then(function (collection) {
-//   console.log("CairoSeller is created!");
-// });
-// AlexSeller.createCollection().then(function (collection) {
-//   console.log("CairoSeller is created!");
-// });
-// CairoCustomer.createCollection().then(function (collection) {
-//   console.log("CairoSeller is created!");
-// });
-// AlexCustomer.createCollection().then(function (collection) {
-//   console.log("CairoSeller is created!");
-// });
-
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const sellerRoutes = require("./routes/seller");
