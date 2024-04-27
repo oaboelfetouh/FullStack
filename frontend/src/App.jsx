@@ -5,6 +5,7 @@ import Home from "./routes/Home";
 import Profile from "./routes/Profile";
 import Cart from "./routes/Cart";
 import Login from "./routes/Login";
+import PageNotFound from "./pages/PageNotFound";
 import { DarkModeProvider } from "./context/DarkModeContext";
 import "./App.css";
 
@@ -40,6 +41,7 @@ function App() {
                 element={<Profile userType="seller" />}
               ></Route>
             </Route>
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
       </DarkModeProvider>
