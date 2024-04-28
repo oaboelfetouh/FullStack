@@ -47,7 +47,7 @@ export default function Home(props) {
 
   return (
     <>
-      <div className="main-container">{userType} Home</div>
+      <div className="main-container">{userType} </div>
       <ChoiceBox />
       <CardCollection cardData={cardData}/>
     </>

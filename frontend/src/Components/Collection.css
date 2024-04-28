@@ -1,11 +1,32 @@
-.card-collection {
+/*.card-collection {
     display: grid;
     grid-template-columns: repeat(3, 31rem);
     grid-column-gap: 4.3rem;
     grid-row-gap: 4.3rem;
     width: 112.6rem;
-    position: absolute;
-    top: 78%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+}*/
+.card-collection {
+    display: grid;
+    grid-template-columns: repeat(3, 31rem);
+    width: 100%;
+    grid-column-gap: 13.3rem;
+    grid-row-gap: 3.3rem;
+    justify-content: center;
+    padding: 8rem;
+}
+
+.card-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.choiceboxcontainer{
+    display:flex;
+    width:100%;
+}
+.choiceBox{
+    display: flex;
+    align-self: flex-start;
 }
