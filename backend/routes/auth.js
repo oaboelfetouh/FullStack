@@ -10,7 +10,7 @@ router.post(
   [
     body("username")
       .trim()
-      .isLength({ min: 5, max: 25 })
+      .isLength({ min: 3, max: 25 })
       .isAlphanumeric()
       .withMessage(
         "please enter a valid username between 5 and 25 characters with no spaces and only numbers and alphabetic characters"
