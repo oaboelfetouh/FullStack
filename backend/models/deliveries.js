@@ -1,9 +1,9 @@
 const { Schema, model } = require("mongoose");
-const alexDeliveriesSchema = new Schema(
+const deliveriesSchema = new Schema(
   {
     alexCustomers: {
       type: Schema.Types.ObjectId,
-      ref: "AlexCustomers",
+      ref: "AlexCustomers" || "CairoCustomers",
       reqiured: true,
     },
     address: {
@@ -17,4 +17,4 @@ const alexDeliveriesSchema = new Schema(
   },
   { timestamps: true }
 );
-module.exports = model("AlexDeliveries", alexDeliveriesSchema);
+module.exports = model("deliveries", deliveriesSchema);

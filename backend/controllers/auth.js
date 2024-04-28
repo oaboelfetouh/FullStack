@@ -2,68 +2,20 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
 
-const CairoSeller = require("../models/cairo-sellers");
-const AlexSeller = require("../models/alex-sellers");
-const CairoCustomer = require("../models/cairo-customers");
-const AlexCustomer = require("../models/alex-customers");
-const findUser = require("../utilities/findUsersByEmail");
+const { findByEmailAndType } = require("../utilities/find");
+const { createUser } = require("../utilities/create");
+const { checkValidation } = require("../utilities/check");
 
 exports.signup = async (req, res, next) => {
-  const { username, password, email, city, userType } = req.body;
   const errors = validationResult(req);
   try {
-    if (!errors.isEmpty()) {
-      const error = new Error(
-        "Data Validation Failed.Please Enter Valid Data."
-      );
-      error.status = 422;
-      error.data = errors.array();
-      throw error;
-    }
-    const hashedPassword = await bcrypt.hash(password, 12);
+    checkValidation(errors);
+    const hashedPassword = await bcrypt.hash(req.body.password, 12);
+    const result = await createUser(req, hashedPassword);
 
-    let user;
-    if (userType === "seller" && city == "cairo") {
-      user = new CairoSeller({
-        username,
-        password: hashedPassword,
-        email,
-        city,
-        userType,
-      });
-    } else if (userType === "seller" && city == "alex") {
-      user = new AlexSeller({
-        username,
-        password: hashedPassword,
-        email,
-        city,
-        userType,
-      });
-    } else if (userType === "customer" && city == "cairo") {
-      user = new CairoCustomer({
-        username,
-        password: hashedPassword,
-        email,
-        city,
-        userType,
-      });
-    } else if (userType === "customer" && city == "alex") {
-      user = new AlexCustomer({
-        username,
-        password: hashedPassword,
-        email,
-        city,
-        userType,
-      });
-    }
-    if (!user) {
-      const error = new Error("Please Enter A Valid User Type.");
-      error.status = 422;
-      throw error;
-    }
-    const result = await user.save();
     res.status(201).json({
       message: "User Created Successfuly.",
+      user: result._doc,
     });
   } catch (err) {
     if (!err.status) {
@@ -74,24 +26,12 @@ exports.signup = async (req, res, next) => {
 };
 
 exports.login = async (req, res, next) => {
-  const { password, email } = req.body;
+  const { password, email, userType } = req.body;
   const errors = validationResult(req);
   try {
-    if (!errors.isEmpty()) {
-      const error = new Error(
-        "Data Validation Failed. Please Enter Valid Data."
-      );
-      error.status = 422;
-      error.data = errors.array();
-      throw error;
-    }
+    checkValidation(errors);
 
-    const user = await findUser(email);
-    if (!user) {
-      const error = new Error("User With That Email Is Not Found.");
-      error.status = 404;
-      throw error;
-    }
+    const user = await findByEmailAndType(email, userType);
 
     const passwordComparisonResult = await bcrypt.compare(
       password,
@@ -105,7 +45,6 @@ exports.login = async (req, res, next) => {
       throw error;
     }
 
-    const userType = user.userType;
     const token = jwt.sign(
       { email, userId: user._id.toString(), userType },
       "ThisIsASecretKeyYouShouldNotShareItWithAnyOne",

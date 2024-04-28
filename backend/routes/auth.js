@@ -2,7 +2,7 @@ const { Router } = require("express");
 const { body } = require("express-validator");
 
 const authController = require("../controllers/auth");
-const findUser = require("../utilities/findUsersByEmail");
+const { findByEmail } = require("../utilities/find");
 
 const router = Router();
 router.post(
@@ -39,7 +39,7 @@ router.post(
       .isEmail()
       .withMessage("please enter a valid email")
       .custom(async (value, { req }) => {
-        const user = await findUser(req.body.email);
+        const user = await findByEmail(req.body.email);
         if (user) {
           return Promise.reject("Email Already exists");
         }
@@ -83,6 +83,11 @@ router.post(
 router.post(
   "/login",
   [
+    body("userType")
+      .trim()
+      .toLowerCase()
+      .isIn(["seller", "customer"])
+      .withMessage("please enter a valid user type either seller or customer"),
     body("password")
       .trim()
       .isString()

@@ -1,73 +1,51 @@
-// const { validationResult } = require("express-validator");
+const { validationResult } = require("express-validator");
 
-// const Seller = require("../models/seller");
-// const Customer = require("../models/customer");
+const { updateUser } = require("../utilities/update");
+const { findUser } = require("../utilities/find");
+const { checkValidation } = require("../utilities/check");
 
-// exports.getUserProfile = async (req, res, next) => {
-//   const { userId, userType } = req;
+exports.getUserProfile = async (req, res, next) => {
+  try {
+    const user = await findUser(req.userId);
 
-//   try {
-//     let user;
-//     if (userType.trim().toLowerCase() === "seller") {
-//       user = await Seller.findById(userId);
-//     } else if (userType.trim().toLowerCase() === "customer") {
-//       user = await Customer.findById(userId);
-//     }
-//     if (!user) {
-//       const error = new Error("User Not Found.");
-//       error.status = 404;
-//       throw error;
-//     }
-//     res.status(200).json({
-//       message: "User Found Succesfuly",
-//       user: { ...user._doc, password: undefined },
-//     });
-//   } catch (err) {
-//     if (!err.status) {
-//       err.status = 500;
-//     }
-//     next(err);
-//   }
-// };
-// exports.editUserProfile = async (req, res, next) => {
-//   const { username, city, address, phone } = req.body;
-//   const { userId, userType } = req;
-//   const errors = validationResult(req);
+    res.status(200).json({
+      message: "User Found Succesfuly",
+      user: { ...user._doc, password: undefined },
+    });
+  } catch (err) {
+    if (!err.status) {
+      err.status = 500;
+    }
+    next(err);
+  }
+};
 
-//   try {
-//     if (!errors.isEmpty()) {
-//       const error = new Error(
-//         "Data Validation Failed. Please Enter Valid Data."
-//       );
-//       error.status = 422;
-//       error.data = errors.array();
-//       throw error;
-//     }
-//     let user;
-//     if (userType.trim().toLowerCase() === "seller") {
-//       user = await Seller.findById(userId);
-//     } else {
-//       user = await Customer.findById(userId);
-//     }
-//     if (!user) {
-//       const error = new Error("User Not Found.");
-//       error.status = 404;
-//       throw error;
-//     }
+exports.editUserProfile = async (req, res, next) => {
+  const { username, city, address, phone } = req.body;
 
-//     user.username = username;
-//     user.city = city;
-//     user.address = address;
-//     user.phone = phone;
-//     const savedUser = await user.save();
-//     res.status(200).json({
-//       message: "User Updated Succesfuly",
-//       user: { ...savedUser._doc, password: undefined },
-//     });
-//   } catch (err) {
-//     if (!err.status) {
-//       err.status = 500;
-//     }
-//     next(err);
-//   }
-// };
+  const errors = validationResult(req);
+  try {
+    checkValidation(errors);
+
+    const user = await findUser(req.userId);
+
+    let updatedUser;
+    if (user.city != city) {
+      updatedUser = await updateUser(req, user);
+    } else {
+      user.username = username;
+      //user.address = address;
+      //user.phone = phone;
+    }
+
+    res.status(200).json({
+      message: "User Updated Succesfuly",
+      user: { ...updatedUser._doc, password: undefined },
+    });
+  } catch (err) {
+    if (!err.status) {
+      err.status = 500;
+    }
+    next(err);
+  }
+};

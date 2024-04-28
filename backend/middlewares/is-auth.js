@@ -1,18 +1,18 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
-  const authorizatonHeader = req.get('Authorization');
+  const authorizatonHeader = req.get("Authorization");
   if (!authorizatonHeader) {
-    const error = new Error('Not Authorized.');
+    const error = new Error("Not Authorized.");
     error.status = 401;
     throw error;
   }
   let decodedToken;
   try {
-    const token = authorizatonHeader.split(' ')[1];
+    const token = authorizatonHeader.split(" ")[1];
     decodedToken = jwt.verify(
       token,
-      'ThisIsASecretKeyYouShouldNotShareItWithAnyOne'
+      "ThisIsASecretKeyYouShouldNotShareItWithAnyOne"
     );
   } catch (err) {
     if (!err.status) {
@@ -21,11 +21,12 @@ module.exports = (req, res, next) => {
     throw err;
   }
   if (!decodedToken) {
-    const error = new Error('Not Authorized.');
+    const error = new Error("Not Authorized.");
     error.status = 401;
     throw error;
   }
   req.userId = decodedToken.userId;
   req.userType = decodedToken.userType;
+  req.email = decodedToken.email;
   next();
 };

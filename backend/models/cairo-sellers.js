@@ -17,10 +17,6 @@ const cairoSellersSchema = new Schema(
       type: String,
       reqiured: true,
     },
-    userType: {
-      type: String,
-      required: true,
-    },
   },
   { timestamps: true }
 );

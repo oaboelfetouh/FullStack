@@ -1,13 +1,13 @@
 const { Schema, model } = require("mongoose");
-const cairoProductsSchema = new Schema(
+const ProductsSchema = new Schema(
   {
     name: {
       type: String,
       reqiured: true,
     },
-    cairoSeller: {
+    seller: {
       type: Schema.Types.ObjectId,
-      ref: "CairoSellers",
+      ref: "AlexSellers" || "CairoSellers",
       reqiured: true,
     },
     description: {
@@ -23,10 +23,10 @@ const cairoProductsSchema = new Schema(
       type: Number,
       reqiured: true,
     },
-    imageUrl: {
-      type: String,
-      reqiured: true,
-    },
+    // imageUrl: {
+    //   type: String,
+    //   reqiured: true,
+    // },
     category: {
       type: String,
       reqiured: true,
@@ -34,4 +34,4 @@ const cairoProductsSchema = new Schema(
   },
   { timestamps: true }
 );
-module.exports = model("CairoProducts", cairoProductsSchema);
+module.exports = model("Products", ProductsSchema);
