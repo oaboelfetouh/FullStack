@@ -1,16 +1,22 @@
 import { useEffect } from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import DarkModeToggle from "../ui/DarkModeToggle";
 import { FiLogOut } from 'react-icons/fi'
 import { RiAccountCircleLine, RiShoppingCart2Fill } from "react-icons/ri";
 import { FaSearch } from "react-icons/fa";
+import Cookies from "js-cookie"
 
 export default function Base(props) {
   const nav = useNavigate();
+  const route = useLocation().pathname.split("/")[1];
 
   useEffect(() => {
-    //nav('/login')
+    if (route == "user" || route == "store") {
+      if(Cookies.get('token') == undefined || Cookies.get('tokenExpiryDate') < Date.now()) {
+        nav('/login')
+      }
+    }
   });
 
   const handleSearch = (event) => {
@@ -19,7 +25,7 @@ export default function Base(props) {
   }
 
   const Body = styled.div`
-    background: linear-gradient(var(--color-grey-200) 0%, var(--color-grey-100) 100%);
+    background: linear-gradient(var(--color-grey-100) 0%, var(--color-grey-50) 100%);
     min-height: 100vh;
   `
 
@@ -77,35 +83,48 @@ export default function Base(props) {
       <Body>
         <Nav>
           <div className="logo">
-            <Link to={props.userType == "customer" ? "/" : "/store"}>LOGO</Link>
+            <Link to={"/" + route}>LOGO</Link>
           </div>
           <Search onSubmit={handleSearch}>
             <input type="text" 
-              placeholder={props.userType == "customer"
-                ? "What are you looking for?"
-                : "Search your products"} />
+              placeholder={props.userType == "seller"
+                ? "Search your products"
+                : "What are you looking for?"} />
             
             <FaSearch />
           </Search>
-          <NavButtonsContainer>
-            <DarkModeToggle></DarkModeToggle>
-            {props.userType == "customer" &&
-              <NavButton to={"/cart"}>
-                <RiShoppingCart2Fill />
-                Cart
+          {props.userType == "customer" || props.userType == "seller" ?
+            <NavButtonsContainer>
+              <DarkModeToggle></DarkModeToggle>
+              {props.userType == "customer" &&
+                <NavButton to={"cart"}>
+                  <RiShoppingCart2Fill />
+                  Cart
+                </NavButton>
+              }
+              <NavButton to="profile">
+                <RiAccountCircleLine />
+                Profile
               </NavButton>
-            }
-            <NavButton to={props.userType == "customer" ? "/profile" : "/store/profile"}>
-              <RiAccountCircleLine />
-              Profile
-            </NavButton>
-            <NavButton to={"/login"}>
-              <FiLogOut />
-              Logout
-            </NavButton>
-          </NavButtonsContainer>
+              <NavButton to={"/login"}>
+                <FiLogOut />
+                Logout
+              </NavButton>
+            </NavButtonsContainer>
+          :
+            <NavButtonsContainer>
+              <DarkModeToggle></DarkModeToggle>
+              <NavButton to="/login">
+                Login
+              </NavButton>
+              <NavButton to="/signup">
+                Signup
+              </NavButton>
+            </NavButtonsContainer>
+          }
         </Nav>
-        <Outlet />
+
+        <Outlet context={props.userType} />
 
         <footer></footer>
       </Body>

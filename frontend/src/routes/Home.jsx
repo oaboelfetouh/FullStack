@@ -1,7 +1,11 @@
+import { useOutletContext } from "react-router-dom";
 import CardCollection from '../Components/Collection';
 import { ChoiceBox } from '../Components/ChoiceBox';
 import { Card } from '../Components/Card';
 export default function Home(props) {
+
+  const userType = useOutletContext();
+
   const cardData = [
     {
       imgSrc: "../../assets/bycicle.jpeg",
@@ -43,7 +47,7 @@ export default function Home(props) {
 
   return (
     <>
-      <div className="main-container">{props.userType} Home</div>
+      <div className="main-container">{userType} Home</div>
       <ChoiceBox />
       <CardCollection cardData={cardData}/>
     </>
