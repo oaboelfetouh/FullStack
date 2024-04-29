@@ -17,6 +17,16 @@ const cairoCustomersSchema = new Schema(
       type: String,
       reqiured: true,
     },
+    cart: [
+      {
+        productId: {
+          reqiured: true,
+          type: Schema.Types.ObjectId,
+          ref: "Products",
+        },
+        quantity: { reqiured: true, type: Number },
+      },
+    ],
   },
   { timestamps: true }
 );

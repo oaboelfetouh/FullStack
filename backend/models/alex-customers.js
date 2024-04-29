@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const alexUsersSchema = new Schema(
+const alexCustomersSchema = new Schema(
   {
     username: {
       type: String,
@@ -17,7 +17,17 @@ const alexUsersSchema = new Schema(
       type: String,
       reqiured: true,
     },
+    cart: [
+      {
+        productId: {
+          reqiured: true,
+          type: Schema.Types.ObjectId,
+          ref: "Products",
+        },
+        quantity: { reqiured: true, type: Number },
+      },
+    ],
   },
   { timestamps: true }
 );
-module.exports = model("AlexUsers", alexUsersSchema);
+module.exports = model("AlexCustomers", alexCustomersSchema);

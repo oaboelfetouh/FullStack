@@ -14,16 +14,16 @@ const customersFinanceSchema = new Schema(
       type: Object,
       reqiured: true,
     },
-    cart: [
-      {
-        productId: {
-          reqiured: true,
-          type: Schema.Types.ObjectId,
-          ref: "Product",
-        },
-        quantity: { reqiured: true, type: Number },
-      },
-    ],
+    // cart: [
+    //   {
+    //     productId: {
+    //       reqiured: true,
+    //       type: Schema.Types.ObjectId,
+    //       ref: "Products",
+    //     },
+    //     quantity: { reqiured: true, type: Number },
+    //   },
+    // ],
   },
   { timestamps: true }
 );

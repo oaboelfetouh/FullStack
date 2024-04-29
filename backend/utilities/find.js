@@ -63,7 +63,7 @@ findProduct = async function (productId) {
 };
 
 findProducts = async function () {
-   const products=await Product.find();
+  const products = await Product.find();
   return products;
 };
 

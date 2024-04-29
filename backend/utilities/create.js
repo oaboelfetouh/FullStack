@@ -2,6 +2,7 @@ const CairoSeller = require("../models/cairo-sellers");
 const AlexSeller = require("../models/alex-sellers");
 const CairoCustomer = require("../models/cairo-customers");
 const AlexCustomer = require("../models/alex-customers");
+//const CustomerFinance = require("../models/customers-finance");
 const Product = require("../models/products");
 
 createUser = async function (req, hashedPassword) {
