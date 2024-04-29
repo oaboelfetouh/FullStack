@@ -1,4 +1,7 @@
 # Distributed-System-Project
 
-APIs sheet link:
-https://docs.google.com/spreadsheets/d/173e8h6BaVaJel9TU4rby2lT_KobZPFwMd9QNWYiTyc0/edit?usp=sharing
+- Links:
+  -- APIs sheet:
+  https://docs.google.com/spreadsheets/d/1_XojNOnvHYji9W4a0ab8A33tY8I8e5Vk36jvA73c3_Q/edit?usp=sharing
+  -- Figma:
+  https://www.figma.com/file/6ivtJL89gchJQJmdEFs5A8/Distributed-project?type=design&node-id=0-1&mode=design
