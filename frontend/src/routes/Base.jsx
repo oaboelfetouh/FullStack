@@ -6,6 +6,7 @@ import { FiLogOut } from 'react-icons/fi'
 import { RiAccountCircleLine, RiShoppingCart2Fill } from "react-icons/ri";
 import { FaSearch } from "react-icons/fa";
 import Cookies from "js-cookie"
+import { ProductsProvider } from "./../context/ProductsContext";
 
 export default function Base(props) {
   const nav = useNavigate();
@@ -27,6 +28,10 @@ export default function Base(props) {
   const Body = styled.div`
     background: linear-gradient(var(--color-grey-100) 0%, var(--color-grey-50) 100%);
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
   `
 
   const Nav = styled.nav`
@@ -37,6 +42,8 @@ export default function Base(props) {
     padding: 1rem 2rem;
     font-size: 2rem;
     box-shadow: 0 4px 8px 0 var(--color-grey-300);
+    width: 100%;
+    gap: 1rem
   `
 
   const NavButton = styled(Link)`
@@ -67,14 +74,20 @@ export default function Base(props) {
     justify-content: center;
     align-items: center;
     padding: 0 2rem 0 0;
-
+    flex-grow: 1;
+    max-width: 55rem;
+    
     & input, & input:focus {
       background-color: var(--color-grey-200);
       border-radius: 50px;
-      min-width: 50rem;
+      flex-grow: 1;
       border: none;
       outline: none;
       padding: 0.6rem 0.6rem 0.6rem 2.2rem;  
+    }
+
+    & input::placeholder {
+      color: var(--color-grey-500);
     }
   `
 
@@ -123,8 +136,10 @@ export default function Base(props) {
             </NavButtonsContainer>
           }
         </Nav>
-
+          <ProductsProvider>
         <Outlet context={props.userType} />
+            
+          </ProductsProvider>
 
         <footer></footer>
       </Body>

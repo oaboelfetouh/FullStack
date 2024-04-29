@@ -1,18 +1,21 @@
 import { Card } from "../Components/Card";
+import { Link } from "react-router-dom";
 import "./Collection.css"
+
 const CardCollection = ({ cardData }) => {
   return (
     <div className="card-collection">
       {cardData.map((card, index) => (
-        <div className="card-container" key={index}>
-          <Card
-            imgSrc={card.imgSrc}
-            itemName={card.itemName}
-            price={card.price}
-            sellerName={card.sellerName}
-            Description={card.Description}
-          />
-        </div>
+          <Link to={card.name}>
+            <Card
+              key={index}
+              imgSrc={card.imageUrl}
+              itemName={card.name}
+              price={card.price}
+              sellerName={card.seller}
+              Description={card.description}
+            />
+          </Link>
       ))}
     </div>
   );
